@@ -82,7 +82,7 @@ console.log('App Name:', import.meta.env.VITE_APP_NAME);
 
 ### **Default Values:**
 If environment variables are not set, the app uses these defaults:
-- `VITE_API_URL` → `http://localhost:5000/api`
+- `VITE_API_URL` → `https://evb-1i4y.onrender.com/api` (updated for production)
 - `VITE_GOOGLE_CLIENT_ID` → `YOUR_GOOGLE_CLIENT_ID_HERE`
 
 ---
@@ -94,8 +94,30 @@ If environment variables are not set, the app uses these defaults:
 2. Use production URLs in environment variables
 3. Ensure `.env.local` is in `.gitignore`
 
-### **For Vercel/Netlify:**
-1. Add environment variables in deployment platform settings
+### **For Vercel Deployment:**
+
+#### **Step 1: Set Environment Variables in Vercel Dashboard**
+1. Go to your project in Vercel dashboard
+2. Navigate to **Settings** → **Environment Variables**
+3. Add the following variable:
+   - **Name:** `VITE_API_URL`
+   - **Value:** `https://evb-1i4y.onrender.com/api`
+   - **Environment:** Production (and Preview/Development if needed)
+
+#### **Step 2: Optional Variables (if needed)**
+- `VITE_FRONTEND_URL` - Your Vercel deployment URL (e.g., `https://your-app.vercel.app`)
+- `VITE_APP_NAME` - Application name
+- `VITE_APP_VERSION` - Application version
+- `VITE_APP_ENVIRONMENT` - Set to `production`
+
+#### **Step 3: Redeploy**
+After adding environment variables, redeploy your application for changes to take effect.
+
+#### **Note:**
+The `.env` file in your local `frontend` directory is already configured with the Render backend URL for reference. Vercel will use the environment variables set in the dashboard instead.
+
+### **For Netlify:**
+1. Add environment variables in Netlify dashboard (Site settings → Environment variables)
 2. Use production API URLs
 3. Configure build settings
 
