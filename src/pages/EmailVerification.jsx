@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { showSuccess, showError } from '../utils/toast';
+import { getApiUrl } from '../utils/api';
 
 const EmailVerification = () => {
   const [searchParams] = useSearchParams();
@@ -32,8 +33,8 @@ const EmailVerification = () => {
 
   const verifyToken = async (token) => {
     try {
-      // VITE_API_URL already includes /api, so we just append /users/verify
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://evb-1i4y.onrender.com/api';
+      // Use normalized API URL
+      const apiUrl = getApiUrl();
       const response = await fetch(`${apiUrl}/users/verify/${token}`);
       
       if (response.ok) {

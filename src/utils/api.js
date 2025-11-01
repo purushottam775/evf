@@ -1,6 +1,36 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://evb-1i4y.onrender.com/api';
+// Normalize API URL to always end with /api
+let API_URL = import.meta.env.VITE_API_URL || 'https://evb-1i4y.onrender.com/api';
+
+// Ensure API_URL always ends with /api
+if (!API_URL.endsWith('/api')) {
+  // If it ends with just /, remove it and add /api
+  if (API_URL.endsWith('/')) {
+    API_URL = API_URL.slice(0, -1) + '/api';
+  } else {
+    // Otherwise append /api
+    API_URL = API_URL + '/api';
+  }
+}
+
+// Log for debugging (remove in production if needed)
+if (import.meta.env.DEV) {
+  console.log('API URL configured as:', API_URL);
+}
+
+// Export normalized API URL for use in other files
+export const getApiUrl = () => {
+  let url = import.meta.env.VITE_API_URL || 'https://evb-1i4y.onrender.com/api';
+  if (!url.endsWith('/api')) {
+    if (url.endsWith('/')) {
+      url = url.slice(0, -1) + '/api';
+    } else {
+      url = url + '/api';
+    }
+  }
+  return url;
+};
 
 const api = axios.create({
   baseURL: API_URL,
